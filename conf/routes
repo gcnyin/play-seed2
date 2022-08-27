@@ -1,0 +1,2 @@
+GET         /users         controllers.users.UserController.listUser()
+POST        /users/        controllers.users.UserController.createUser()
