@@ -2,9 +2,6 @@ package controllers.users
 
 import eu.timepit.refined.api._
 import eu.timepit.refined.string._
-import io.circe._
-import io.circe.generic.semiauto._
-import io.circe.refined._ // Appears to be unused but is actually in use
 
 final case class CreateUserRequest(
     username: String Refined MatchesRegex["^[a-zA-Z0-9]{6,18}$"],
@@ -12,5 +9,8 @@ final case class CreateUserRequest(
 )
 
 object CreateUserRequest {
-  implicit val value: Decoder[CreateUserRequest] = deriveDecoder[CreateUserRequest]
+  import play.api.libs.json._
+  import be.venneborg.refined.play.RefinedJsonFormats._ // Appears to be unused but is actually in use
+
+  implicit val format: OFormat[CreateUserRequest] = Json.format[CreateUserRequest]
 }

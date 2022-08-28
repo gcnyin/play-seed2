@@ -4,7 +4,6 @@ import dao.Tables._
 import dao.Tables.profile.api._
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
 import play.api.http.HttpErrorHandler
-import play.api.libs.circe.Circe
 import play.api.libs.json._
 import play.api.mvc._
 import slick.jdbc.JdbcProfile
@@ -17,14 +16,11 @@ import scala.concurrent.ExecutionContext
 @Singleton
 class UserController @Inject() (
     protected val dbConfigProvider: DatabaseConfigProvider,
-    val controllerComponents: ControllerComponents,
-    val errorHandler: HttpErrorHandler
+    val controllerComponents: ControllerComponents
 )(implicit
     ec: ExecutionContext
 ) extends BaseController
-    with HasDatabaseConfigProvider[JdbcProfile]
-    with Circe {
-  override def circeErrorHandler: HttpErrorHandler = errorHandler
+    with HasDatabaseConfigProvider[JdbcProfile] {
 
   def listUser(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     for {
@@ -33,7 +29,7 @@ class UserController @Inject() (
     } yield Ok(Json.toJson(res))
   }
 
-  def createUser(): Action[CreateUserRequest] = Action.async(circe.json[CreateUserRequest]) { implicit request =>
+  def createUser(): Action[CreateUserRequest] = Action.async(parse.json[CreateUserRequest]) { implicit request =>
     val userId = UUID.randomUUID()
     val CreateUserRequest(username, password) = request.body
     val now = Instant.now()
