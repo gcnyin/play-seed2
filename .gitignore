@@ -10,3 +10,4 @@ target/
 logs/
 node_modules/
 .g8/
+*.swp

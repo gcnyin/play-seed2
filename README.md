@@ -1,7 +1,9 @@
-# play-seed-2
+# play-seed2
 
-- evolutions
-- slick codegen. See https://github.com/gcnyin/slick-codegen.
+- play evolutions https://www.playframework.com/documentation/2.8.x/Evolutions
+- slick codegen https://github.com/gcnyin/slick-codegen
+- refined type https://github.com/fthomas/refined
+- play-circe https://github.com/jilen/play-circe
 
 Run
 

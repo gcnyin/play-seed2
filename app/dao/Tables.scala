@@ -14,9 +14,7 @@ object Tables
 trait Tables extends PlayEvolutionsTable with UserTable {
   val profile: slick.jdbc.JdbcProfile
   import profile.api._
-  import slick.model.ForeignKeyAction
   // NOTE: GetResult mappers for plain SQL are only generated for tables where Slick knows how to map the types of all columns.
-  import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
   lazy val schema: profile.SchemaDescription = PlayEvolutions.schema ++ User.schema
