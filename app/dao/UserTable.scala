@@ -6,6 +6,7 @@ trait UserTable {
   self: Tables =>
 
   import profile.api._
+  import slick.model.ForeignKeyAction
   // NOTE: GetResult mappers for plain SQL are only generated for tables where Slick knows how to map the types of all columns.
   import slick.jdbc.{GetResult => GR}
 
@@ -17,9 +18,9 @@ trait UserTable {
     * @param password
     *   Database column password SqlType(varchar), Length(255,true)
     * @param createdAt
-    *   Database column created_at SqlType(timestamp)
+    *   Database column created_at SqlType(timestamptz)
     * @param updatedAt
-    *   Database column updated_at SqlType(timestamp)
+    *   Database column updated_at SqlType(timestamptz)
     */
   case class UserRow(
       userId: java.util.UUID,
@@ -36,7 +37,7 @@ trait UserTable {
   }
 
   /** Table description of table user. Objects of this class serve as prototypes for rows in queries. */
-  class User(_tableTag: Tag) extends profile.api.Table[UserRow](_tableTag, Some("play_seed"), "user") {
+  class User(_tableTag: Tag) extends profile.api.Table[UserRow](_tableTag, "user") {
     def * = (userId, username, password, createdAt, updatedAt) <> (UserRow.tupled, UserRow.unapply)
 
     /** Maps whole row to an option. Useful for outer joins. */
@@ -54,10 +55,10 @@ trait UserTable {
     /** Database column password SqlType(varchar), Length(255,true) */
     val password: Rep[String] = column[String]("password", O.Length(255, varying = true))
 
-    /** Database column created_at SqlType(timestamp) */
+    /** Database column created_at SqlType(timestamptz) */
     val createdAt: Rep[java.time.Instant] = column[java.time.Instant]("created_at")
 
-    /** Database column updated_at SqlType(timestamp) */
+    /** Database column updated_at SqlType(timestamptz) */
     val updatedAt: Rep[java.time.Instant] = column[java.time.Instant]("updated_at")
 
     /** Uniqueness Index over (username) (database name user_username_key) */

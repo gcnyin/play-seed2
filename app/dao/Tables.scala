@@ -11,13 +11,16 @@ object Tables
 /** Slick data model trait for extension, choice of backend or usage in the cake pattern. (Make sure to initialize this late.) Each
   * generated XXXXTable trait is mixed in this trait hence allowing access to all the TableQuery lazy vals.
   */
-trait Tables extends PlayEvolutionsTable with UserTable {
+trait Tables extends PlayEvolutionsTable with UserTable with RolePermissionTable with RoleTable with UserRoleTable with PermissionTable {
   val profile: slick.jdbc.JdbcProfile
   import profile.api._
+  import slick.model.ForeignKeyAction
   // NOTE: GetResult mappers for plain SQL are only generated for tables where Slick knows how to map the types of all columns.
+  import slick.jdbc.{GetResult => GR}
 
   /** DDL for all tables. Call .create to execute. */
-  lazy val schema: profile.SchemaDescription = PlayEvolutions.schema ++ User.schema
+  lazy val schema: profile.SchemaDescription =
+    Array(Permission.schema, PlayEvolutions.schema, Role.schema, RolePermission.schema, User.schema, UserRole.schema).reduceLeft(_ ++ _)
   @deprecated("Use .schema instead of .ddl", "3.0")
   def ddl = schema
 

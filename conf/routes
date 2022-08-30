@@ -1,2 +1,3 @@
-GET         /users        controllers.users.UserController.listUser()
-POST        /users        controllers.users.UserController.createUser()
+GET         /             controllers.HomeController.home()
+GET         /users        controllers.users.Controller.listUser()
+POST        /users        controllers.users.Controller.createUser()

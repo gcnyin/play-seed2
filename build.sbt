@@ -12,6 +12,7 @@ lazy val root = (project in file("."))
       "com.typesafe.play" %% "play-slick" % "5.0.2",
       "org.postgresql" % "postgresql" % "42.5.0",
       "eu.timepit" %% "refined" % "0.9.28",
-      "be.venneborg" %% "play28-refined" % "0.6.0"
+      "be.venneborg" %% "play28-refined" % "0.6.0",
+      "org.julienrf" %% "play-json-derived-codecs" % "10.1.0"
     )
   )

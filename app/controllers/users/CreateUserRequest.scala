@@ -4,7 +4,7 @@ import eu.timepit.refined.api._
 import eu.timepit.refined.string._
 
 final case class CreateUserRequest(
-    username: String Refined MatchesRegex["^[a-zA-Z0-9]{6,18}$"],
+    username: String Refined MatchesRegex["^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$"],
     password: String Refined MatchesRegex["^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$"]
 )
 

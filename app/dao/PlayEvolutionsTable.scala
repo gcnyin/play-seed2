@@ -6,6 +6,7 @@ trait PlayEvolutionsTable {
   self: Tables =>
 
   import profile.api._
+  import slick.model.ForeignKeyAction
   // NOTE: GetResult mappers for plain SQL are only generated for tables where Slick knows how to map the types of all columns.
   import slick.jdbc.{GetResult => GR}
 
@@ -47,7 +48,7 @@ trait PlayEvolutionsTable {
   }
 
   /** Table description of table play_evolutions. Objects of this class serve as prototypes for rows in queries. */
-  class PlayEvolutions(_tableTag: Tag) extends profile.api.Table[PlayEvolutionsRow](_tableTag, Some("play_seed"), "play_evolutions") {
+  class PlayEvolutions(_tableTag: Tag) extends profile.api.Table[PlayEvolutionsRow](_tableTag, "play_evolutions") {
     def * = (id, hash, appliedAt, applyScript, revertScript, state, lastProblem) <> (PlayEvolutionsRow.tupled, PlayEvolutionsRow.unapply)
 
     /** Maps whole row to an option. Useful for outer joins. */

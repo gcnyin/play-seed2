@@ -3,7 +3,6 @@ package controllers.users
 import dao.Tables._
 import dao.Tables.profile.api._
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
-import play.api.http.HttpErrorHandler
 import play.api.libs.json._
 import play.api.mvc._
 import slick.jdbc.JdbcProfile
@@ -14,7 +13,7 @@ import javax.inject._
 import scala.concurrent.ExecutionContext
 
 @Singleton
-class UserController @Inject() (
+class Controller @Inject() (
     protected val dbConfigProvider: DatabaseConfigProvider,
     val controllerComponents: ControllerComponents
 )(implicit
